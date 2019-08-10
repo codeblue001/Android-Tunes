@@ -4,16 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.widget.Toast;
-
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     //Declare variables for TabLayout
-    private TabLayout tabLayout;
+    Toolbar toolbar;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    FragmentPagerAdapter fragmentPagerAdapter;
 
     //Arrays for Icon
     final int[] ICONS = new int[]{
@@ -27,21 +28,20 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initialize the variables for tablayout
-
+        //Initialize the variables
         Toolbar toolbar = findViewById(R.id.app_toolbar);
         toolbar.setTitle(getResources().getString(R.string.app_name));
-        ViewPager viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.music_tab_layout);
-
-
-        //Define page Adapter
-        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdaptor(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(fragmentPagerAdapter);
+        viewPager = findViewById(R.id.viewPager);
 
         addTabs();
+        //Add adapter
+        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdaptor(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(fragmentPagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
         selectedLister();
-//        setTitle();
     }
 
     //Add tabs
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Toast.makeText(getApplicationContext(), "This is BabaG", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -77,19 +76,5 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
             }
         });
-    }
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
     }
 }

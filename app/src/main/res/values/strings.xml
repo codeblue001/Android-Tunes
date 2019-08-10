@@ -8,4 +8,7 @@
     <string name="artist_name">artist name</string>
     <string name="track_price">track price</string>
     <string name="track_number">1</string>
+    <string name="hello_pop_fragment">hello_pop_fragment</string>
+    <string name="hello_classic_fragment">hello_classic_fragment</string>
+    <string name="hello_rock_fragment">hello_rock_fragment</string>
 </resources>

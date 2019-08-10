@@ -15,25 +15,22 @@ public class FragmentPagerAdaptor extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new Rock();
-                break;
+                return new Rock();
             case 1:
-                fragment = new Classic();
-                break;
+                return new Classic();
             case 2:
-                fragment = new Pop();
-                break;
+                return new Pop();
+            default:
+                return null;
         }
-        return fragment;
     }
 
     @Override
     public int getCount() {
         //3 tabs
-        return 3;
+        return numOfTabs;
     }
 
 
