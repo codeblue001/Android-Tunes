@@ -11,27 +11,15 @@
         android:id="@+id/music_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/frame_view"
         app:layout_constraintTop_toTopOf="parent"
         android:background="#66ccff"
         app:tabTextColor="#fff">
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rock" />
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Classic"/>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pop"/>
+
 
     </com.google.android.material.tabs.TabLayout>
 
     <FrameLayout
-        android:id="@+id/frame_view"
+        android:id="@+id/fragment_placeholder"
         android:layout_width="409dp"
         android:layout_height="654dp"
         app:layout_constraintBottom_toBottomOf="parent"
