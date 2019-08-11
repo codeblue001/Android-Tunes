@@ -2,19 +2,26 @@ package jide.delano.androidtunes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
-    //Declare variables for TabLayout
-    Toolbar toolbar;
+    //Declare variables for TabLayout, viewpaper and recycler view
     TabLayout tabLayout;
     ViewPager viewPager;
-    FragmentPagerAdapter fragmentPagerAdapter;
+    androidx.fragment.app.FragmentPagerAdapter fragmentPagerAdapter;
+
 
     //Arrays for Icon
     final int[] ICONS = new int[]{
@@ -34,9 +41,13 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.music_tab_layout);
         viewPager = findViewById(R.id.viewPager);
 
+
+        //set Recycler layout Manager
+//        rock_recycler.setLayoutManager(new GridLayoutManager(this, 1));
+//        initRetrofit();
         addTabs();
         //Add adapter
-        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdaptor(getSupportFragmentManager(), tabLayout.getTabCount());
+        androidx.fragment.app.FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdaptor(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(fragmentPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -79,4 +90,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
