@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Toast.makeText(getApplicationContext(), "This is BabaG", Toast.LENGTH_SHORT).show();
+                viewPager.setCurrentItem(tab.getPosition());//*****************Works!
+
             }
 
             @Override
