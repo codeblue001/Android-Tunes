@@ -1,5 +1,5 @@
 package jide.delano.androidtunes;
 
-public class CustomListener {
-
+public interface CustomListener {
+    void  onItemClicked(SongList list);
 }

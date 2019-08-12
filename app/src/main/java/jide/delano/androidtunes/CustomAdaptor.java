@@ -6,13 +6,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
 public class CustomAdaptor extends RecyclerView.Adapter<CustomViewHolder> {
     //Declare variables
-    private SongResults dataSet;
+    private List<SongList> dataSet;
+    private CustomListener listener;
 
-    public void setDataSet(SongResults dataSet) {
+    public void setDataSet(List<SongList> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
+    }
+
+    public void setListener(){
+        this.listener = listener;
     }
 
     @NonNull
@@ -25,15 +34,14 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         holder.onBindViewHolder(
-                dataSet.results.get(position)
+                dataSet.get(position), listener
         );
-
     }
 
     @Override
     public int getItemCount() {
         return dataSet != null ?
-                dataSet.results.size()
+                dataSet.size()
                 :
                 0;
     }
