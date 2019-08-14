@@ -17,7 +17,6 @@ public class Pop extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        pop_recycler = getView().findViewById(R.id.pop_recycleView);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pop, container, false);
         return  view;

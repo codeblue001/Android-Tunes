@@ -20,7 +20,7 @@ public class CustomAdaptor extends RecyclerView.Adapter<CustomViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void setListener(){
+    public void setListener(CustomListener listener){
         this.listener = listener;
     }
 

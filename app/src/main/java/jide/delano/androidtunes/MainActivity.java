@@ -2,11 +2,15 @@ package jide.delano.androidtunes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
 import android.os.Bundle;
-import android.widget.FrameLayout;
 import android.widget.Toast;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -24,14 +28,11 @@ public class MainActivity extends AppCompatActivity {
     //Declare variables for TabLayout, viewpaper and recycler view
     TabLayout tabLayout;
     ViewPager viewPager;
-    FrameLayout frameLayout;
-    Fragment fragment;
-    Pop popFragment;
-    Rock rockFragment;
-    Classic classicFragment;
     List<SongList> dataSet = new ArrayList<>();
-    CustomAdaptor adaptor;
-    androidx.fragment.app.FragmentPagerAdapter fragmentPagerAdapter;
+    RecyclerView recyclerView;
+    SongResults songResults;//
+
+    private static final String TAG = "MainActivity";
 
 
     //Arrays for Icon
@@ -52,21 +53,20 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.music_tab_layout);
         viewPager = findViewById(R.id.viewPager);
 
-
-        //set Recycler layout Manager
-//        rock_recycler.setLayoutManager(new GridLayoutManager(this, 1));
-//        initRetrofit();
         addTabs();
         //Add adapter
-        androidx.fragment.app.FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdaptor(getSupportFragmentManager(), tabLayout.getTabCount());
+        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdaptor(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(fragmentPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
+        //Add custom Adaptor
+//        CustomAdaptor  customAdaptor = new CustomAdaptor();
+//        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+//        recyclerView.setAdapter(customAdaptor);
         initRetrofit();
 
+        selectedListener();
 
-        selectedLister();
     }
 
     //Add tabs
@@ -84,13 +84,12 @@ public class MainActivity extends AppCompatActivity {
         */
     }
 
-    public void selectedLister() {
+    public void selectedListener() {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Toast.makeText(getApplicationContext(), "This is BabaG", Toast.LENGTH_SHORT).show();
                 viewPager.setCurrentItem(tab.getPosition());//*****************Works!
-
             }
 
             @Override
@@ -115,31 +114,13 @@ public class MainActivity extends AppCompatActivity {
         apiInterface.getRockMusic().enqueue(new Callback<SongResults>() {
             @Override
             public void onResponse(Call<SongResults> call, Response<SongResults> response) {
-                dataSet = parse(response.body());
-                adaptor.setDataSet(dataSet);
+                Toast.makeText(getApplicationContext(), "Rock and Roll", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<SongResults> call, Throwable t) {
-
+                Toast.makeText(getApplicationContext(), "Epic Fail", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-    private List<SongList> parse(SongResults results) {
-        List<SongList> dataSet = new ArrayList<>();
-
-        for (int i = 0; i < results.getResults().size(); i++) {
-            SongList song = new SongList();
-            song.setArtistName(results.getResults().get(i).getArtistName());
-            song.setTrackPrice(results.getResults().get(i).getTrackPrice());
-            song.setCollectionName(results.getResults().get(i).getCollectionName());
-            song.setArtworkUrl60(results.getResults().get(i).getArtworkUrl60());
-            dataSet.add(song);
-        }
-
-        return dataSet;
-    }
-
-
 }
